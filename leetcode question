@@ -1,0 +1,22 @@
+ long long dividePlayers(vector<int>& skillLevels) {
+        // Sort the skill levels in ascending order
+        sort(skillLevels.begin(), skillLevels.end());
+
+        int numPlayers = skillLevels.size(); // Number of players
+        int teamBalancingFactor = skillLevels[0] + skillLevels[numPlayers - 1];
+        long long productSum = 0; // Variable to store the sum of product of skills
+      
+        // Pair players starting from the weakest and the strongest
+        for (int left = 0, right = numPlayers - 1; left < right; ++left, --right) {
+            // If the pair doesn't add up to the balancing factor, teams can't be balanced
+            if (skillLevels[left] + skillLevels[right] != teamBalancingFactor) {
+                return -1;
+            }
+            // Add up product of the skills of the two players
+            productSum += static_cast<long long>(skillLevels[left]) * skillLevels[right];
+        }
+      
+        // Return the total sum of products of the skills for all pairs
+        return productSum;
+    }
+};
